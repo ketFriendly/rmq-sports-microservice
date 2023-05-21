@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using ProducerService1.DB.Models;
+using ProducerService1.DTOs;
 
 namespace ProducerService1.DB;
 
@@ -27,6 +28,7 @@ public partial class TestDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<MarketMessageData>().HasNoKey();
         modelBuilder.Entity<Market>(entity =>
         {
             entity.ToTable("market");

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProducerService1.DB;
 using ProducerService1.RMQ;
+using ProducerService1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ builder.Services.AddDbContext<TestDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("test_db")));
 
 builder.Services.AddScoped<IMessageProducer, RabbitMQProducer>();
+builder.Services.AddScoped<IMatchService, MatchService>();
+
+builder.Services.AddSingleton<IMatchesListSingleton>(serviceProvider => MatchesListSingleton.Instance);
 
 var app = builder.Build();
 
