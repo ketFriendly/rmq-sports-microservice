@@ -22,10 +22,10 @@ namespace ProducerService1.Services
             var list = (market_ids == null || market_ids.Count == 0)  switch
             {
                 true => await db.Set<MarketMessageData>()
-                        .FromSqlRaw($"SELECT market.id, matchId, marketId, value, name, sport, timestamp\r\nFROM market \r\n\tINNER JOIN match ON market.matchId = match.id\r\n\tLEFT JOIN sport ON match.sportId = sport.id\r\nWHERE \r\n\tmatchId IN ({string.Join(",", match_ids)}) \r\nORDER BY timestamp")
+                        .FromSqlRaw($"SELECT market.id, matchId, marketId, value, name, sport, timestamp, startTime\r\nFROM market \r\n\tINNER JOIN match ON market.matchId = match.id\r\n\tLEFT JOIN sport ON match.sportId = sport.id\r\nWHERE \r\n\tmatchId IN ({string.Join(",", match_ids)}) \r\nORDER BY timestamp")
                         .ToListAsync(),
                 false => await db.Set<MarketMessageData>()
-                        .FromSqlRaw($"SELECT market.id, matchId, marketId, value, name, sport, timestamp\r\nFROM market \r\n\tINNER JOIN match ON market.matchId = match.id\r\n\tLEFT JOIN sport ON match.sportId = sport.id\r\nWHERE \r\n\tmatchId IN ({string.Join(",", match_ids)}) \r\n\tAND marketId IN ({string.Join(",", market_ids)})\r\nORDER BY timestamp")
+                        .FromSqlRaw($"SELECT market.id, matchId, marketId, value, name, sport, timestamp, startTime\r\nFROM market \r\n\tINNER JOIN match ON market.matchId = match.id\r\n\tLEFT JOIN sport ON match.sportId = sport.id\r\nWHERE \r\n\tmatchId IN ({string.Join(",", match_ids)}) \r\n\tAND marketId IN ({string.Join(",", market_ids)})\r\nORDER BY timestamp")
                         .ToListAsync()
             };
             List<MessageDTO> dtos = new List<MessageDTO>();
@@ -47,7 +47,8 @@ namespace ProducerService1.Services
                 value = msg.value,
                 type = containsMatch ? EType.MatchChange : EType.MatchCreate, 
                 sport = msg.sport,
-                name = msg.name
+                name = msg.name,
+                start_time = msg.startTime
             };
             if (!containsMatch)
             {

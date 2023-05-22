@@ -9,6 +9,7 @@
         string sport { get; }
         string name { get; }
         DateTime timestamp { get; }
+        DateTime startTime { get; }
 
     }
 }

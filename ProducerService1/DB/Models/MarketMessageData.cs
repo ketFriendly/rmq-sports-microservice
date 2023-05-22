@@ -11,6 +11,7 @@ namespace ProducerService1.DB.Models
         public string name { get; set; }
         public string sport { get; set; }
         public DateTime timestamp { get; set; }
+        public DateTime startTime { get; set; }
        
     }
 

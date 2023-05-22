@@ -10,5 +10,6 @@ namespace ProducerService1.DTOs
         public EType type { get; set; }
         public required string sport { get; set; }
         public required string name { get; set; }
+        public DateTime start_time { get; set;  }
     }
 }

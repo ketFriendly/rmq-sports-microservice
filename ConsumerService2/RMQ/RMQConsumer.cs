@@ -42,7 +42,10 @@ namespace ConsumerService2.RMQ
                     _channel?.BasicCancel(consumerTag: _consumerTag);
                     _applicationLifetime.StopApplication();
                 }
-                _messageConsumer.ConsumeMessage(body);
+                else
+                {
+                    _messageConsumer.ConsumeMessage(body);
+                }
             };
         }
 
