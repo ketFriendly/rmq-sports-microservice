@@ -1,4 +1,5 @@
 using ConsumerService2.RMQ;
+using ConsumerService2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddSingleton<IMessageConsumer, MessageConsumerService>();
 builder.Services.AddHostedService<RabbitMQConsumerService>();
 
 var app = builder.Build();
