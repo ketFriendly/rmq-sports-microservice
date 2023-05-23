@@ -25,9 +25,9 @@ namespace RMQSportsMicroservices.Controllers
             var dtos = await _service.getData(request.match_ids, request.market_ids);
             foreach (var message in dtos)
             {
-                _messagePublisher.SendMessage(message);
+                _messagePublisher.SendMessage(message.match_id, message);
             }
-            _messagePublisher.SendMessage("stop");
+            //_messagePublisher.SendMessage("stop");
             return Ok(dtos);
         }
        

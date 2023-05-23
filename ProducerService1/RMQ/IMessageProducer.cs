@@ -1,7 +1,9 @@
-﻿namespace ProducerService1.RMQ
+﻿using ProducerService1.DTOs;
+
+namespace ProducerService1.RMQ
 {
     public interface IMessageProducer
     {
-        void SendMessage<T>(T message);
+        void SendMessage(int match_id, MessageDTO message);
     }
 }
